@@ -3,15 +3,15 @@ package br.com.caelum.dao;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import br.com.caelum.model.Empresa;
 
-public class EmDAO {
-	private static final Map<Long, Empresa> empresas = new HashMap<>();
-
+public class EmpresaDAO {
+	/* simulação de um BD */
+	private static Map<Long, Empresa> empresas = new HashMap<>();
+	
 	static {
 		geraIdEAdiciona(new Empresa("Doceria bela vista"));
 		geraIdEAdiciona(new Empresa("Ferragens Doces"));
@@ -21,43 +21,32 @@ public class EmDAO {
 		geraIdEAdiciona(new Empresa("Casa do codigo"));
 	}
 	
-	public Collection<Empresa> buscaPorSimilaridade(String nome){
-		if(nome == null || nome.equals(" ")) {
+	public Collection<Empresa> buscaPorFiltro(String parametro) {
+		if(parametro == null || parametro.equals(" ")) {
 			return empresas.values();
-		}else {
-			List<Empresa> lista = new LinkedList<>();
-			
-			for(Empresa empresa : empresas.values()) {
-				if(empresa.getNome().toLowerCase().contains(nome.toLowerCase())) {
-					lista.add(empresa);
-				}
-			}
-			return lista;
 		}
+		
+		List<Empresa> lista = new ArrayList<>();
+		for(Empresa empresa : empresas.values()) {
+			if(empresa.getNome().toLowerCase().contains(parametro)) {
+				lista.add(empresa);
+			}
+		}
+		return lista;
 	}
 	
 	public void adiciona(Empresa empresa) {
 		geraIdEAdiciona(empresa);
 	}
 	
-	public Empresa buscaPorId(String id) {
-		if(id == null) {
-			return null;
-		}
-		Empresa empresa = empresas.get(new Long(id));
-		
-		return empresa;
-	}
-
 	private static void geraIdEAdiciona(Empresa empresa) {
-		Long id =  empresas.size() + 1L;
+		Long id = empresas.size() + 1L;
 		empresa.setId(id);
 		empresas.put(id, empresa);
 	}
 	
+	
 }
-
-
 
 
 

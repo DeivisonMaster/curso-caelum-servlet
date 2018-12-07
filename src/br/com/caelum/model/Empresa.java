@@ -1,4 +1,4 @@
-package br.com.servidor.model;
+package br.com.caelum.model;
 
 public class Empresa {
 	private String nome;

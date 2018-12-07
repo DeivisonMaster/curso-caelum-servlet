@@ -1,12 +1,12 @@
-package br.com.servidor.dao;
+package br.com.caelum.dao;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.servidor.model.Usuario;
+import br.com.caelum.model.Usuario;
 
-public class UsuarioDAO {
+public class UsuDAO {
 	private static final Map<String, Usuario> usuarios = new HashMap<>();
 	
 	static {
