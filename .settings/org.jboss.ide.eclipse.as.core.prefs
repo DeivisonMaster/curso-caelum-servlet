@@ -1,0 +1,2 @@
+eclipse.preferences.version=1
+org.jboss.ide.eclipse.as.core.singledeployable.deployableList=WebContent/WEB-INF/lib/xstream-1.4.3.jar\nWebContent/WEB-INF/lib/jstl-1.2.jar\n
