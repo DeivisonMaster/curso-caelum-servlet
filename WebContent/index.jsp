@@ -26,7 +26,9 @@
 			
 			<input type="submit" value="salvar"/>
 			<br/>
-			
+		</form>
+		
+		<form action="logout" method="POST">
 			<input type="submit" value="deslogar"/>
 		</form>
 

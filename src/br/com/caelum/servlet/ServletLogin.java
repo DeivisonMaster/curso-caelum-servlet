@@ -31,6 +31,7 @@ public class ServletLogin extends HttpServlet {
 		} else {
 			escreve.println("<html><body><h2> Usuario logado!</h2>" + usuario.getEmail() + "</body></html>");
 			Cookie cookie = new Cookie("usuarioLogado", usuario.getEmail());
+			cookie.setMaxAge(10 * 60);
 			resp.addCookie(cookie);
 		}
 	}
