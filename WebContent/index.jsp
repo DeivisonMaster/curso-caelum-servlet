@@ -6,6 +6,11 @@
 <title>Servlet - API</title>
 </head>
 <body>
+		
+		<c:if test="${not empty usuarioLogado}">
+			Logado como ${usuarioLogado.email}
+		</c:if>
+		
 		<form action="novaEmpresa" method="POST">
 			Nome: 
 			<input type="text" name="nome" size="20"/>

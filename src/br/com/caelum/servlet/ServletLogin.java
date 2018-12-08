@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.caelum.dao.UsuarioDAO;
 import br.com.caelum.model.Usuario;
@@ -29,10 +30,23 @@ public class ServletLogin extends HttpServlet {
 		if (usuario == null) {
 			escreve.println("<html><body><h2> Usuario não encontrado! </h2></body></html>");
 		} else {
+			this.geraSession(req, usuario);
+			
 			escreve.println("<html><body><h2> Usuario logado!</h2>" + usuario.getEmail() + "</body></html>");
-			Cookie cookie = new Cookie("usuarioLogado", usuario.getEmail());
-			cookie.setMaxAge(10 * 60);
-			resp.addCookie(cookie);
 		}
 	}
+
+	private void geraSession(HttpServletRequest req, Usuario usuario) {
+		HttpSession session = req.getSession();
+		session.setAttribute("usuarioLogado", usuario);
+	}
+
+	private void geraCookie(HttpServletResponse resp, Usuario usuario) {
+		Cookie cookie = new Cookie("usuarioLogado", usuario.getEmail());
+		cookie.setMaxAge(10 * 60);
+		resp.addCookie(cookie);
+	}
+	
+	
+	
 }

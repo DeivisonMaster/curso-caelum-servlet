@@ -2,8 +2,10 @@ package br.com.caelum.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,31 +21,20 @@ public class ServletBuscaEmpresa extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter escreve = response.getWriter();
-		
-		escreve.println("<html>");
-		escreve.println("<head>");
-		escreve.println("<title>");
-		escreve.println("Busca Empresa");
-		escreve.println("</title>");
-		escreve.println("</head>");
-		escreve.println("<body>");
-		escreve.println("Resultado da busca: " );
-		escreve.println("<ul>");
-		
 		String filtro = request.getParameter("filtro");
-		buscaEmpresaPorFiltro(escreve, filtro);
+		Collection<Empresa> empresas = this.buscaEmpresaPorFiltro(filtro);
 		
-		escreve.println("</ul>");
-		escreve.println("</body>");
-		escreve.println("</html>");
+		request.setAttribute("listaEmpresas", empresas);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/novaEmpresa.jsp");
+		dispatcher.forward(request, response);
 	}
 
-	private void buscaEmpresaPorFiltro(PrintWriter escreve, String filtro) {
+
+	private Collection<Empresa> buscaEmpresaPorFiltro(String filtro) {
+		Collection<Empresa> empresas = new ArrayList<>();
 		EmpresaDAO empresaDAO = new EmpresaDAO();
-		Collection<Empresa> empresas = empresaDAO.buscaPorFiltro(filtro);
-		for(Empresa empresa : empresas) {
-			escreve.println("<li>" + "Id: " + empresa.getId() + "Nome: " + empresa.getNome() + "</li>");
-		}
+		empresas = empresaDAO.buscaPorFiltro(filtro);
+		
+		return empresas;
 	}
 }
