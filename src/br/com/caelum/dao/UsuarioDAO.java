@@ -1,29 +1,26 @@
 package br.com.caelum.dao;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import br.com.caelum.model.Usuario;
 
-public class UsuDAO {
-	private static final Map<String, Usuario> usuarios = new HashMap<>();
+public class UsuarioDAO {
+	private static Map<String, Usuario> usuarios = new HashMap<>();
 	
 	static {
-		usuarios.put("katia@gmail.com", new Usuario("katia@gmail.com", "123"));
 		usuarios.put("admin@gmail.com", new Usuario("admin@gmail.com", "321"));
 	}
 	
-	public Usuario buscaPorEmailESenha(String email) {
+
+	public Usuario buscaPorEmail(String email){
 		if(!usuarios.containsKey(email)) {
+			//throw new IllegalArgumentException("Usuario não cadastrado!");
 			return null;
 		}
 		
 		Usuario usuario = usuarios.get(email);
-		if(usuario != null) {
-			return usuario;
-		}
-		return null;
+		return usuario;
 	}
 
 }
